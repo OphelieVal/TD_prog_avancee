@@ -25,3 +25,6 @@ class Rayon(models.Model):
     def __str__(self):
         return self.nomRayon
 
+class Contenir(models.Model):
+    rayon = models.ForeignKey(Rayon, on_delete=models.CASCADE,null=True, blank=True)
+    produit = models.ForeignKey(Produit, on_delete=models.CASCADE, null=True, blank=True)
