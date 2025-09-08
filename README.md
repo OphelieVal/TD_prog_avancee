@@ -5,3 +5,5 @@ Groupe : Info3.3
 
 # Avancement
 - 01/09/25 : TD n°1
+- 04/09/25 : Fin TD n°1 et TP n°1
+- 08/09/25 : Fin TP n°1 et TD n°2
