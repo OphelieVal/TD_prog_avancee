@@ -6,5 +6,7 @@ urlpatterns = [
     path('home/<param>',views.home ,name='home'),
     path("contact", views.contact, name="contact"),
     path("about", views.about, name="about"),
-    path("produits/", views.ListProduits, name="list_produits")
+    path("produits/", views.ListProduits, name="list_produits"),
+    path("categories/", views.ListCategories, name="list_categories"),
+    path("statuts/", views.ListStatuts, name="list_statuts")
 ]

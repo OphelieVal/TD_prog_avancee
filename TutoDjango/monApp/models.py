@@ -13,7 +13,7 @@ class Statut(models.Model):
     libelle = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.nomStatut
+        return self.libelle
 
 class Produit(models.Model):
     refProd = models.AutoField(primary_key=True)
