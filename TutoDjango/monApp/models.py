@@ -30,3 +30,10 @@ class Rayon(models.Model):
 class Contenir(models.Model):
     rayon = models.ForeignKey(Rayon, on_delete=models.CASCADE,null=True, blank=True)
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE, null=True, blank=True)
+
+class Statut(models.Model):
+    idStatut = models.AutoField(primary_key=True)
+    libelle = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nomStatut
