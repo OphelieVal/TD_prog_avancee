@@ -5,6 +5,9 @@ class ProduitAdmin(admin.ModelAdmin):
     model = Produit
     list_display =  ["refProd", "intituleProd", "prixUnitaireProd", "dateFabProd", "categorie", "status"]
     list_editable = ["intituleProd", "prixUnitaireProd", "dateFabProd"]
+    radio_fields = {"status": admin.VERTICAL}
+    search_fields = ('intituleProd', 'dateFabProd')
+    list_filter = ('status', 'dateFabProd')
 
 class ProduitInline(admin.TabularInline):
     model = Produit
