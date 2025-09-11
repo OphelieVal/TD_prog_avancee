@@ -2,7 +2,9 @@ from django.contrib import admin
 from .models import *
 
 class ProduitAdmin(admin.ModelAdmin):
-    list_display = ('intituleProd', 'prixUnitaireProd')
+    model = Produit
+    list_display =  ["refProd", "intituleProd", "prixUnitaireProd", "dateFabProd", "categorie", "status"]
+    list_editable = ["intituleProd", "prixUnitaireProd", "dateFabProd"]
 
 class ProduitInline(admin.TabularInline):
     model = Produit
