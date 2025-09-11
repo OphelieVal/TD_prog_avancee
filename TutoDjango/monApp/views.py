@@ -1,9 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .models import Produit, Categorie, Statut
 
 def home(request, param=""):
-    return HttpResponse("<h1> Bonjour " + param + "</h1>")
+    if request.GET and request.GET["test"]:
+        raise Http404
+    string = request.GET['name']
+    return HttpResponse("Bonjour %s!" % string)
 
 def contact(request):
     return HttpResponse("<h1>Contact us</h1><p>Coming soon</p>")
