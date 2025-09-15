@@ -1,10 +1,33 @@
 {% extends 'base.html' %}
-{% block content %}
+
+{% block menu %}
 <h1>Liste des catégories</h1>
-<p>Les catégories disponibles sont :</p>
-<ul>
+{% endblock %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <th>Id</th>
+        <th>Nom catégorie</th>
+    </thead>
+    <tbody>
     {% for cat in cats %}
-        <li>{{ cat.nomCat }}</li>
+    <tr>
+        <td>{{ cat.idCat }}</td>
+        <td>{{ cat.nomCat }}</td>
+    </tr>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
+<p>
+J'ai
+{% if cats|length < 5 %}
+    peu de
+{% elif cats|length < 10 %}
+    quelques
+{% else %}
+    beaucoup de
+{% endif %}
+catégories disponibles.
+</p>
 {% endblock %}

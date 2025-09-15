@@ -1,10 +1,33 @@
 {% extends 'base.html' %}
-{% block content %}
+
+{% block menu %}
 <h1>Liste des statuts</h1>
-<p>Les statuts disponibles sont :</p>
-<ul>
+{% endblock %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <th>Id</th>
+        <th>Libellé statut</th>
+    </thead>
+    <tbody>
     {% for stat in stats %}
-        <li>{{ stat.libelleStatus }}</li>
+    <tr>
+        <td>{{ stat.idStatus }}</td>
+        <td>{{ stat.libelleStatus }}</td>
+    </tr>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
+<p>
+J'ai
+{% if stats|length < 5 %}
+    peu de
+{% elif stats|length < 10 %}
+    quelques
+{% else %}
+    beaucoup de
+{% endif %}
+statuts disponibles.
+</p>
 {% endblock %}
