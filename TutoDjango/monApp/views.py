@@ -16,7 +16,7 @@ def about(request):
 
 def ListProduits(request):
     prdts = Produit.objects.all()
-    return render(request, 'list_produits.html', {'premier_produit': prdts[0]})
+    return render(request, 'list_produits.html', {'prdts': prdts})
 
 def ListCategories(request):
     cats = Categorie.objects.all()
