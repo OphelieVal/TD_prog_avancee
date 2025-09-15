@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from .models import Produit, Categorie, Statut
+from .models import Produit, Categorie, Statut, Rayon
 
 def home(request, param=""):
     if request.GET and request.GET["test"]:
@@ -9,10 +9,10 @@ def home(request, param=""):
     return HttpResponse("Bonjour %s!" % string)
 
 def contact(request):
-    return HttpResponse("<h1>Contact us</h1><p>Coming soon</p>")
+    return render(request, 'contact.html')
 
 def about(request):
-    return HttpResponse("<h1>About us</h1><p>No description</p>")
+    return render(request, 'about.html')
 
 def ListProduits(request):
     prdts = Produit.objects.all()
@@ -20,26 +20,12 @@ def ListProduits(request):
 
 def ListCategories(request):
     cats = Categorie.objects.all()
-    res = """
-    <h2>Liste des catégories</h2>
-    <ul>
-    """
-    for cat in cats:
-        res += f"<li>{cat.nomCat}</li>\n"  
-    res += """
-    </ul>
-    """
-    return HttpResponse(res)
+    return render(request, 'list_categories.html', {'cats': cats})
 
 def ListStatuts(request):
     stats = Statut.objects.all()
-    res = """
-    <h2>Liste des statuts</h2>
-    <ul>
-    """
-    for stat in stats:
-        res += f"<li>{stat.libelle}</li>\n"
-    res += """
-    </ul>
-    """
-    return HttpResponse(res)
+    return render(request, 'list_statuts.html', {'stats': stats})
+
+def ListRayons(request):
+    rays = Rayon.objects.all()
+    return render(request, 'list_rayons.html', {'rays': rays})
