@@ -1,27 +1,21 @@
-<html>
-    <head>
-        <title>Mes produits</title>
-    </head>
-    <body>
-        <h1>Liste des produits</h1>
-        <p>Mes produits sont :</p>
-        <ul>
-            {% for prdt in prdts %}
-                <li>{{ prdt.intituleProd }}</li>
-            {% endfor %}
-        </ul>
-        <p>
-            J'ai 
-                {% if prdts|length < 5 %}
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Liste des produits</h1>
+    <p>Mes produits sont :</p>
+    <ul>
+        {% for prdt in prdts %}
+            <li>{{ prdt.intituleProd }}</li>
+        {% endfor %}
+    </ul>
+    <p>
+        J'ai 
+        {% if prdts|length < 5 %}
             peu de
-                {% elif prdts|length < 10 %}
+        {% elif prdts|length < 10 %}
             quelques
-                {% else %}
+        {% else %}
             beaucoup de
-                {% endif %}
+        {% endif %}
             produits préférés.
-        </p>
-
-    </body>
-</html>
-
+    </p>
+{% endblock %}

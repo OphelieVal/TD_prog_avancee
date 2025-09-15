@@ -1,14 +1,10 @@
-<html>
-    <head>
-        <title>Mes catégories</title>
-    </head>
-    <body>
-        <h1>Liste des catégories</h1>
-        <p>Les catégories disponibles sont :</p>
-        <ul>
-            {% for cat in cats %}
-                <li>{{ cat.nomCat }}</li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h1>Liste des catégories</h1>
+<p>Les catégories disponibles sont :</p>
+<ul>
+    {% for cat in cats %}
+        <li>{{ cat.nomCat }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

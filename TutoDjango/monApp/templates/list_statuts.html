@@ -1,14 +1,10 @@
-<html>
-    <head>
-        <title>Mes statuts</title>
-    </head>
-    <body>
-        <h1>Liste des statuts</h1>
-        <p>Les statuts disponibles sont :</p>
-        <ul>
-            {% for stat in stats %}
-                <li>{{ stat.libelleStatus }}</li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h1>Liste des statuts</h1>
+<p>Les statuts disponibles sont :</p>
+<ul>
+    {% for stat in stats %}
+        <li>{{ stat.libelleStatus }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

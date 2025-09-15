@@ -1,14 +1,10 @@
-<html>
-    <head>
-        <title>Mes rayons</title>
-    </head>
-    <body>
-        <h1>Liste des rayons</h1>
-        <p>Les rayons disponibles sont :</p>
-        <ul>
-            {% for ray in rays %}
-                <li>{{ ray.nomRayon }}</li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h1>Liste des rayons</h1>
+<p>Les rayons disponibles sont :</p>
+<ul>
+    {% for ray in rays %}
+        <li>{{ ray.nomRayon }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
