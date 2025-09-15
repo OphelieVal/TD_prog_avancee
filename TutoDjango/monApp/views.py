@@ -16,16 +16,7 @@ def about(request):
 
 def ListProduits(request):
     prdts = Produit.objects.all()
-    res = """ 
-    <h2>Liste des produits</h2>
-    <ul> 
-    """
-    for prdt in prdts :
-        res += f"<li> {prdt.intituleProd} </li>\n"
-    res += """
-    </ul>
-    """
-    return HttpResponse(res)
+    return render(request, 'list_produits.html', {'premier_produit': prdts[0]})
 
 def ListCategories(request):
     cats = Categorie.objects.all()
