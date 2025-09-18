@@ -34,8 +34,6 @@ class HomeParamView(TemplateView):
         return render(request, self.template_name)
 
 
-
-
 #def contact(request):
 #    return render(request, 'contact.html')
 
@@ -60,10 +58,32 @@ class AboutView(TemplateView):
     def post(self, request, **kwargs):
         return render(request, self.template_name)
 
-def ListProduits(request):
-    prdts = Produit.objects.all()
-    return render(request, 'list_produits.html', {'prdts': prdts})
+#def ListProduits(request):
+#    prdts = Produit.objects.all()
+#    return render(request, 'list_produits.html', {'prdts': prdts})
 
+class ProduitDetailView(DetailView):
+    model = Produit
+    template_name = "detail_produit.html"
+    context_object_name = "prdt"
+
+    def get_context_data(self, **kwargs):
+        context = super(ProduitDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail du produit"
+        return context
+
+class ProduitListView(ListView):
+    model = Produit
+    template_name = "list_produits.html"
+    context_object_name = "prdts"
+    def get_queryset(self ) :
+        return Produit.objects.order_by("prixUnitaireProd")
+    
+    def get_context_data(self, **kwargs):
+        context = super(ProduitListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste de mes produits"
+        return context  
+    
 def ListCategories(request):
     cats = Categorie.objects.all()
     return render(request, 'list_categories.html', {'cats': cats})
