@@ -19,7 +19,7 @@ from django.urls import include, path
 from monApp import views
 
 urlpatterns = [
-    path("", views.home, name="home"),
+    path("", views.HomeView.as_view()),
     path("monApp/", include("monApp.urls")),
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
