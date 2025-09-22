@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ prdt.intituleProd }}</h2>
+<h2>{{ titremenu }}</h2>
 
 <ul>
     <li>Référence produit : {{ prdt.refProd }} </li>
-    <li>Intitulé du produi : {{ prdt.intituleProd }} </li>
+    <li>Intitulé du produit : {{ prdt.intituleProd }} </li>
     <li>Prix unitaire HT : {{ prdt.prixUnitaireProd }} </li>
     <li>Date de fabrication : {{ prdt.dateFabProd }} </li>
     <li>Catégorie : {{ prdt.categorie }} </li>
     <li>Statut : {{ prdt.status }}</li>
 </ul>
+<a href="{% url 'lst_prdts' %}">Retour à la liste des produits</a>
 {% endblock %}

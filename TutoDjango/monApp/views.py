@@ -84,13 +84,43 @@ class ProduitListView(ListView):
         context['titremenu'] = "Liste de mes produits"
         return context  
     
+class CatDetailView(DetailView):
+    model = Categorie
+    template_name = "detail_categorie.html"
+    context_object_name = "cat"
+
+    def get_context_data(self, **kwargs):
+        context = super(CatDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail de la catégorie"
+        return context
+    
 def ListCategories(request):
     cats = Categorie.objects.all()
     return render(request, 'list_categories.html', {'cats': cats})
 
+class StatutDetailView(DetailView):
+    model = Statut
+    template_name = "detail_statut.html"
+    context_object_name = "stat"
+
+    def get_context_data(self, **kwargs):
+        context = super(StatutDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail du statut"
+        return context
+
 def ListStatuts(request):
     stats = Statut.objects.all()
     return render(request, 'list_statuts.html', {'stats': stats})
+
+class RayonDetailView(DetailView):
+    model = Rayon
+    template_name = "detail_rayon.html"
+    context_object_name = "ray"
+
+    def get_context_data(self, **kwargs):
+        context = super(RayonDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail du rayon"
+        return context
 
 def ListRayons(request):
     rays = Rayon.objects.all()

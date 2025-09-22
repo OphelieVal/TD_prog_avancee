@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ titremenu }}</h2>
+
+<ul>
+    <li>Référence catégorie : {{ cat.idCat }} </li>
+    <li>Intitulé de la catégorie : {{ cat.nomCat }} </li>
+</ul>
+<a href="{% url 'lst_prdts' %}">Retour à la liste des produits</a>
+{% endblock %}

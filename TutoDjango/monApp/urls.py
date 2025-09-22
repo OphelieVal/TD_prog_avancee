@@ -8,9 +8,11 @@ urlpatterns = [
     path('home/<param>',views.HomeParamView.as_view() ,name='home_param'),
     path("contact", views.ContactView.as_view(), name="contact"),
     path("about", views.AboutView.as_view(), name="about"),
-    path("produits/",views.ProduitListView.as_view(), name="list_produits"),
+    path("produits/",views.ProduitListView.as_view(),name="lst_prdts"),
     path("produit/<pk>/",views.ProduitDetailView.as_view(), name="dtl_prdt"),
     path("categories/", views.ListCategories, name="list_categories"),
+    path('categorie/<int:pk>/', views.CatDetailView.as_view(), name='dtl_categorie'),
     path("statuts/", views.ListStatuts, name="list_statuts"),
+    path('statut/<int:pk>/', views.StatutDetailView.as_view(), name='dtl_statut'),
     path("rayons/", views.ListRayons, name="list_rayons")
 ]
