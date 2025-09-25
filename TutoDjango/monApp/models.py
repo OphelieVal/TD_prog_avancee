@@ -16,6 +16,13 @@ class Statut(models.Model):
     def __str__(self):
         return self.libelleStatus
     
+class Rayon(models.Model):
+    idRayon = models.AutoField(primary_key=True)
+    nomRayon = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nomRayon
+    
 
 class Produit(models.Model):
     refProd = models.AutoField(primary_key=True)
@@ -26,16 +33,11 @@ class Produit(models.Model):
     # Relation CIF : chaque produit appartient à 1 catégorie (0,N côté catégorie → 1,1 côté produit)
     categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE, related_name="produits_categorie", null=True, blank=True)
     status = models.ForeignKey(Statut, on_delete=models.CASCADE, related_name="produits_status",null=True, blank=True)
+    rayon = models.ForeignKey(Rayon, on_delete=models.CASCADE, related_name="produits_rayon",null=True, blank=True)
+
 
     def __str__(self):
         return self.intituleProd
-
-class Rayon(models.Model):
-    idRayon = models.AutoField(primary_key=True)
-    nomRayon = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nomRayon
     
 class Contenir(models.Model):
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE, related_name="contenir_produit")

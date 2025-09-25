@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from .models import Produit, Categorie, Statut, Rayon
 from django.views.generic import *
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import User
 
 #def home(request, param=""):
 #    if request.GET and request.GET["test"]:
@@ -125,3 +128,35 @@ class RayonDetailView(DetailView):
 def ListRayons(request):
     rays = Rayon.objects.all()
     return render(request, 'list_rayons.html', {'rays': rays})
+
+
+class ConnectView(LoginView):
+    template_name = 'page_login.html'
+    def post(self, request, **kwargs):
+        lgn = request.POST.get('username', False)
+        pswrd = request.POST.get('password', False)
+        user = authenticate(username=lgn, password=pswrd)
+        if user is not None and user.is_active:
+            login(request, user)
+            return render(request, 'page_home.html', {'param': lgn, 'message': "You're connected"})
+        else:
+            return render(request, 'page_register.html')
+        
+class RegisterView(TemplateView):
+    template_name = 'page_register.html'
+    def post(self, request, **kwargs):
+        user = request.POST.get('username', False)
+        mail = request.POST.get('mail', False)
+        password = request.POST.get('password', False)
+        user = User.objects.create_user(user, mail, password)
+        user.save()
+        if user is not None and user.is_active:
+            return render(request, 'page_login.html', {'message': "Vous pouvez maintenant vous connecter"})
+        else:
+            return render(request, 'page_register.html')
+        
+class DisconnectView(TemplateView):
+    template_name = 'page_home.html'
+    def get(self, request, **kwargs):
+        logout(request)
+        return render(request, self.template_name, {'message': "Vous êtes déconnecté"})
