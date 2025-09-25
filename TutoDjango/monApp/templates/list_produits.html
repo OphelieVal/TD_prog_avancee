@@ -6,6 +6,7 @@
         <th>Nom produit</th>
         <th>Prix unitaire</th>
         <th>Date fabrication</th>
+        <th>Rayon</th>
         <th>Catégorie</th>
         <th>Statut</th>
     </thead>
@@ -16,6 +17,13 @@
         <td>{{ prdt.intituleProd }} </td>
         <td>{{ prdt.prixUnitaireProd }} </td>
         <td>{{ prdt.dateFabProd }} </td>
+        <td>
+        {% if prdt.rayon %}
+            <a href="{% url 'dtl_rayon' prdt.rayon.idRayon %}">{{ prdt.rayon }}</a>
+        {% else %}
+            (Aucun)
+        {% endif %}
+        </td>
         <td><a href="{% url 'dtl_categorie' prdt.categorie.idCat %}">{{ prdt.categorie }}</a></td>
         <td><a href="{% url 'dtl_statut' prdt.status.idStatus %}">{{ prdt.status }}</a></td>
     </tr>

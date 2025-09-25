@@ -14,5 +14,6 @@ urlpatterns = [
     path('categorie/<int:pk>/', views.CatDetailView.as_view(), name='dtl_categorie'),
     path("statuts/", views.ListStatuts, name="list_statuts"),
     path('statut/<int:pk>/', views.StatutDetailView.as_view(), name='dtl_statut'),
-    path("rayons/", views.ListRayons, name="list_rayons")
+    path("rayons/", views.ListRayons, name="list_rayons"),
+    path('rayon/<int:pk>/', views.RayonDetailView.as_view(), name='dtl_rayon'),
 ]

@@ -100,7 +100,7 @@ def ListCategories(request):
 
 class StatutDetailView(DetailView):
     model = Statut
-    template_name = "detail_statut.html"
+    template_name = "detail_status.html"
     context_object_name = "stat"
 
     def get_context_data(self, **kwargs):

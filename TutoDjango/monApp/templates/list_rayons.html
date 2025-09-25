@@ -9,7 +9,7 @@
     <tbody>
     {% for ray in rays %}
     <tr>
-        <td>{{ ray.idRayon }}</td>
+        <td><a href="{% url 'dtl_rayon' ray.idRayon %}">{{ ray.idRayon }}</a></td>
         <td>{{ ray.nomRayon }}</td>
     </tr>
     {% endfor %}

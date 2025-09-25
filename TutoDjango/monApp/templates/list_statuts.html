@@ -9,7 +9,7 @@
     <tbody>
     {% for stat in stats %}
     <tr>
-        <td>{{ stat.idStatus }}</td>
+        <td><a href="{% url 'dtl_statut' stat.idStatus %}">{{ stat.idStatus }}</a></td>
         <td>{{ stat.libelleStatus }}</td>
     </tr>
     {% endfor %}
