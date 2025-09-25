@@ -1,10 +1,13 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse, Http404
+from .forms import ContactUsForm
 from .models import Produit, Categorie, Statut, Rayon
 from django.views.generic import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 #def home(request, param=""):
 #    if request.GET and request.GET["test"]:
@@ -40,14 +43,23 @@ class HomeParamView(TemplateView):
 #def contact(request):
 #    return render(request, 'contact.html')
 
-class ContactView(TemplateView):
-    template_name = "page_home.html"
-    def get_context_data(self, **kwargs):
-        context = super(ContactView, self).get_context_data(**kwargs)
-        context['titreh1'] = "Don't hesitate to contact us !"
-        return context
-    def post(self, request, **kwargs):
-        return render(request, self.template_name)
+def ContactView(request):
+    titreh1 = "Contact us !"
+    if request.method=='POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            send_mail(
+            subject=f'Message from {form.cleaned_data["name"] or "anonyme"} via TutoDjango Contact form',
+            message=form.cleaned_data['message'],
+            from_email=form.cleaned_data['email'],
+            recipient_list=['admin@monApp.com'],
+            )
+            return redirect('email_sent')
+    else:
+        form = ContactUsForm()
+    print('La méthode de requête est : ', request.method)
+    print('Les données POST sont : ', request.POST)
+    return render(request, "page_home.html",{'titreh1':titreh1, 'form':form})
 
 #def about(request):
 #    return render(request, 'about.html')
@@ -138,7 +150,7 @@ class ConnectView(LoginView):
         user = authenticate(username=lgn, password=pswrd)
         if user is not None and user.is_active:
             login(request, user)
-            return render(request, 'page_home.html', {'param': lgn, 'message': "You're connected"})
+            return render(request, 'page_home.html', {'param': lgn, 'message': "Vous êtes connecté"})
         else:
             return render(request, 'page_register.html')
         
