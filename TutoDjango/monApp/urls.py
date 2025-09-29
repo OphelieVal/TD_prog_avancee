@@ -22,4 +22,5 @@ urlpatterns = [
     path("email_sent/", views.EmailSentView.as_view(), name="email_sent"),
     path("produit/",views.ProduitCreateView.as_view(), name="crt-prdt"),
     path("produit/<pk>/update/",views.ProduitUpdateView.as_view(), name="prdt-chng"),
+    path("produit/<pk>/delete/",views.ProduitDeleteView.as_view(), name="prdt-del"),
 ]

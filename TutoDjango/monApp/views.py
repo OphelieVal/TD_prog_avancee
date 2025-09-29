@@ -1,6 +1,7 @@
 from django.forms import BaseModelForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
+from django.urls import reverse_lazy
 from .forms import ContactUsForm, ProduitForm
 from .models import Produit, Categorie, Statut, Rayon
 from django.views.generic import *
@@ -111,6 +112,12 @@ class ProduitUpdateView(UpdateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         prdt = form.save()
         return redirect('dtl_prdt', prdt.refProd)
+    
+class ProduitDeleteView(DeleteView):
+    model = Produit
+    template_name = "delete_produit.html"
+    success_url = reverse_lazy('lst_prdts')
+    
 
 class ProduitListView(ListView):
     model = Produit

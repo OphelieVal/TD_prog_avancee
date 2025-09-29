@@ -24,8 +24,20 @@
             (Aucun)
         {% endif %}
         </td>
-        <td><a href="{% url 'dtl_categorie' prdt.categorie.idCat %}">{{ prdt.categorie }}</a></td>
-        <td><a href="{% url 'dtl_statut' prdt.status.idStatus %}">{{ prdt.status }}</a></td>
+        <td>
+        {% if prdt.categorie %}
+            <a href="{% url 'dtl_categorie' prdt.categorie.idCat %}">{{ prdt.categorie }}</a>
+        {% else %}
+            (Aucune)
+        {% endif %}
+        </td>
+        <td>
+            {% if prdt.status %}
+            <a href="{% url 'dtl_statut' prdt.status.idStatus %}">{{ prdt.status }}</a>
+        {% else %}
+            (Aucun)
+        {% endif %}
+        </td>
     </tr>
     {% endfor %}
     </tbody>
