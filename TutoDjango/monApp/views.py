@@ -10,12 +10,6 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 
-#def home(request, param=""):
-#    if request.GET and request.GET["test"]:
-#        raise Http404
-#    string = request.GET['name']
-#    return HttpResponse("Bonjour %s!" % string)
-
 class HomeView(TemplateView):
     template_name = "page_home.html"
 
@@ -40,9 +34,6 @@ class HomeParamView(TemplateView):
     def post(self, request, **kwargs):
         return render(request, self.template_name)
 
-
-#def contact(request):
-#    return render(request, 'contact.html')
 
 class EmailSentView(TemplateView):
     template_name = "email_sent.html"
@@ -71,8 +62,6 @@ def ContactView(request):
     print('Les données POST sont : ', request.POST)
     return render(request, "page_home.html",{'titreh1':titreh1, 'form':form})
 
-#def about(request):
-#    return render(request, 'about.html')
 
 class AboutView(TemplateView):
     template_name = "page_home.html"
@@ -83,9 +72,8 @@ class AboutView(TemplateView):
     def post(self, request, **kwargs):
         return render(request, self.template_name)
 
-#def ListProduits(request):
-#    prdts = Produit.objects.all()
-#    return render(request, 'list_produits.html', {'prdts': prdts})
+
+# Produits CRUD
 
 class ProduitDetailView(DetailView):
     model = Produit
@@ -116,8 +104,7 @@ class ProduitUpdateView(UpdateView):
 class ProduitDeleteView(DeleteView):
     model = Produit
     template_name = "delete_produit.html"
-    success_url = reverse_lazy('lst_prdts')
-    
+    success_url = reverse_lazy('lst_prdts')   
 
 class ProduitListView(ListView):
     model = Produit
@@ -130,7 +117,10 @@ class ProduitListView(ListView):
         context = super(ProduitListView, self).get_context_data(**kwargs)
         context['titremenu'] = "Liste de mes produits"
         return context  
-    
+
+ 
+# Catégorie CRUD
+   
 class CatDetailView(DetailView):
     model = Categorie
     template_name = "detail_categorie.html"
@@ -144,6 +134,9 @@ class CatDetailView(DetailView):
 def ListCategories(request):
     cats = Categorie.objects.all()
     return render(request, 'list_categories.html', {'cats': cats})
+
+
+# Statut CRUD
 
 class StatutDetailView(DetailView):
     model = Statut
@@ -159,6 +152,9 @@ def ListStatuts(request):
     stats = Statut.objects.all()
     return render(request, 'list_statuts.html', {'stats': stats})
 
+
+# Rayon CRUD
+
 class RayonDetailView(DetailView):
     model = Rayon
     template_name = "detail_rayon.html"
@@ -173,6 +169,8 @@ def ListRayons(request):
     rays = Rayon.objects.all()
     return render(request, 'list_rayons.html', {'rays': rays})
 
+
+# Authentification
 
 class ConnectView(LoginView):
     template_name = 'page_login.html'
