@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from .forms import ContactUsForm
 from .models import Produit, Categorie, Statut, Rayon
@@ -42,6 +41,15 @@ class HomeParamView(TemplateView):
 
 #def contact(request):
 #    return render(request, 'contact.html')
+
+class EmailSentView(TemplateView):
+    template_name = "email_sent.html"
+    def get_context_data(self, **kwargs):
+        context = super(EmailSentView, self).get_context_data(**kwargs)
+        return context
+    def post(self, request, **kwargs):
+        return render(request, self.template_name)
+
 
 def ContactView(request):
     titreh1 = "Contact us !"
