@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from .forms import ContactUsForm
+from .forms import ContactUsForm, ProduitForm
 from .models import Produit, Categorie, Statut, Rayon
 from django.views.generic import *
 from django.contrib.auth import authenticate, login, logout
@@ -94,6 +94,16 @@ class ProduitDetailView(DetailView):
         context = super(ProduitDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du produit"
         return context
+
+def ProduitCreate(request):
+    if request.method == 'POST':
+        form = ProduitForm(request.POST)
+        if form.is_valid():
+            prdt = form.save()
+            return redirect('dtl_prdt', prdt.refProd)
+    else:
+        form = ProduitForm()
+    return render(request, "create_produit.html", {'form': form})
 
 class ProduitListView(ListView):
     model = Produit
