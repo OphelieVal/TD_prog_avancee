@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ titremenu }}</h2>
+<h2>{{ ctgr.nomCat }} contenant {{ ctgr.nb_produits }} produit(s)</h2>
 
 <ul>
-    <li>Référence catégorie : {{ cat.idCat }} </li>
-    <li>Intitulé de la catégorie : {{ cat.nomCat }} </li>
+    <li>Référence catégorie : {{ ctgr.idCat }} </li>
+    <li>Intitulé de la catégorie : {{ ctgr.nomCat }} </li>
 </ul>
-<a href="{% url 'cat_chng' cat.idCat %}">modifier</a>
-<a href="{% url 'cat_del' cat.idCat %}">supprimer</a>
-<a href="{% url 'list_categories' %}">Retour à la liste des catégories</a>
+<a href="{% url 'cat_chng' ctgr.idCat %}" class="btn btn-warning mt-2">Modifier</a>
+<a href="{% url 'cat_del' ctgr.idCat %}" class="btn btn-danger mt-2">Supprimer</a>
+<a href="{% url 'list_categories'%}" class="btn btn-info mt-2">Retour</a>
 {% endblock %}

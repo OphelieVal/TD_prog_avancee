@@ -17,7 +17,7 @@ urlpatterns = [
     
     # CRUD Catégorie
     path("categories/", views.ListCategories, name="list_categories"),
-    path('categorie/<int:pk>/', views.CatDetailView.as_view(), name='dtl_categorie'),
+    path('categorie/<int:pk>/', views.CatDetailView.as_view(), name="dtl_categorie"),
     path("categorie/<pk>/update/",views.CategorieUpdateView.as_view(), name="cat_chng"),
     path("categorie/<pk>/delete/",views.CategorieDeleteView.as_view(), name="cat_del"),
     path("categorie/", views.CategorieCreateView.as_view(), name="crt_cat"),

@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.db.models import Count
 
 class HomeView(TemplateView):
     template_name = "page_home.html"
@@ -124,11 +125,16 @@ class ProduitListView(ListView):
 class CatDetailView(DetailView):
     model = Categorie
     template_name = "detail_categorie.html"
-    context_object_name = "cat"
+    context_object_name = "ctgr"
+    
+    def get_queryset(self):
+        # Annoter chaque catégorie avec le nombre de produits liés
+        return Categorie.objects.annotate(nb_produits=Count('produits_categorie'))
 
     def get_context_data(self, **kwargs):
         context = super(CatDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail de la catégorie"
+        context['prdts'] = self.object.produits_categorie.all()
         return context
     
 class CategorieCreateView(CreateView):
@@ -153,8 +159,21 @@ class CategorieDeleteView(DeleteView):
     success_url = reverse_lazy('list_categories')   
 
 def ListCategories(request):
-    cats = Categorie.objects.all()
-    return render(request, 'list_categories.html', {'cats': cats})
+    ctgrs = Categorie.objects.all()
+    return render(request, 'list_categories.html', {'ctgrs': ctgrs})
+
+class CategorieListView(ListView):
+    model = Categorie
+    template_name = "list_categories.html"
+    context_object_name = "ctgrs"
+    
+    def get_queryset(self):
+        # Annoter chaque catégorie avec le nombre de produits liés
+        return Categorie.objects.annotate(nb_produits=Count('produits_categorie'))
+    def get_context_data(self, **kwargs):
+        context = super(CategorieListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste de mes catégories"
+        return context
 
 
 # Statut CRUD
