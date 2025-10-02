@@ -7,5 +7,6 @@
     <li>Référence statut : {{ stat.idStatus }} </li>
     <li>Intitulé du statut : {{ stat.libelleStatus }} </li>
 </ul>
+<a href="{% url 'stat_chng' stat.idStatus %}">modifier</a>
 <a href="{% url 'list_statuts' %}">Retour à la liste des statuts</a>
 {% endblock %}

@@ -138,6 +138,14 @@ class CategorieCreateView(CreateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         cat = form.save()
         return redirect('dtl_categorie', cat.idCat)
+    
+class CategorieUpdateView(UpdateView):
+    model = Categorie
+    form_class=CategorieForm
+    template_name = "update_categorie.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        cat = form.save()
+        return redirect('dtl_categorie', cat.idCat)
 
 def ListCategories(request):
     cats = Categorie.objects.all()
@@ -160,6 +168,14 @@ class StatutCreateView(CreateView):
     model = Statut
     form_class=StatutForm
     template_name = "create_statut.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        stat = form.save()
+        return redirect('dtl_statut', stat.idStatus)
+    
+class StatutUpdateView(UpdateView):
+    model = Statut
+    form_class=StatutForm
+    template_name = "update_statut.html"
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         stat = form.save()
         return redirect('dtl_statut', stat.idStatus)
@@ -188,6 +204,14 @@ class RayonCreateView(CreateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         stat = form.save()
         return redirect('dtl_rayon', stat.idRayon)
+    
+class RayonUpdateView(UpdateView):
+    model = Rayon
+    form_class=RayonForm
+    template_name = "update_rayon.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        ray = form.save()
+        return redirect('dtl_rayon', ray.idRayon)
 
 def ListRayons(request):
     rays = Rayon.objects.all()

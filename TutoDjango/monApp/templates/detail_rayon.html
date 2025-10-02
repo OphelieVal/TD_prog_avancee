@@ -7,5 +7,6 @@
     <li>Référence rayon : {{ ray.idRayon }} </li>
     <li>Intitulé du rayon : {{ ray.nomRayon }} </li>
 </ul>
+<a href="{% url 'ray_chng' ray.idRayon%}">modifier</a>
 <a href="{% url 'list_rayons' %}">Retour à la liste des rayons</a>
 {% endblock %}
