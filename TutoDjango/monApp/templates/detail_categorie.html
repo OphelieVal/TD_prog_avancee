@@ -8,5 +8,6 @@
     <li>Intitulé de la catégorie : {{ cat.nomCat }} </li>
 </ul>
 <a href="{% url 'cat_chng' cat.idCat %}">modifier</a>
+<a href="{% url 'cat_del' cat.idCat %}">supprimer</a>
 <a href="{% url 'list_categories' %}">Retour à la liste des catégories</a>
 {% endblock %}

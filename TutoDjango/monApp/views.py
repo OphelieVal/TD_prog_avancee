@@ -146,6 +146,11 @@ class CategorieUpdateView(UpdateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         cat = form.save()
         return redirect('dtl_categorie', cat.idCat)
+    
+class CategorieDeleteView(DeleteView):
+    model = Categorie
+    template_name = "delete_categorie.html"
+    success_url = reverse_lazy('list_categories')   
 
 def ListCategories(request):
     cats = Categorie.objects.all()
@@ -179,6 +184,11 @@ class StatutUpdateView(UpdateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         stat = form.save()
         return redirect('dtl_statut', stat.idStatus)
+    
+class StatutDeleteView(DeleteView):
+    model = Statut
+    template_name = "delete_statut.html"
+    success_url = reverse_lazy('list_statuts')   
 
 def ListStatuts(request):
     stats = Statut.objects.all()
@@ -212,6 +222,11 @@ class RayonUpdateView(UpdateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         ray = form.save()
         return redirect('dtl_rayon', ray.idRayon)
+    
+class RayonDeleteView(DeleteView):
+    model = Rayon
+    template_name = "delete_rayon.html"
+    success_url = reverse_lazy('list_rayons')
 
 def ListRayons(request):
     rays = Rayon.objects.all()
