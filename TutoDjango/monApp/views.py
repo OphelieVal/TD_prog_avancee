@@ -2,7 +2,7 @@ from django.forms import BaseModelForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
-from .forms import ContactUsForm, ProduitForm
+from .forms import *
 from .models import Produit, Categorie, Statut, Rayon
 from django.views.generic import *
 from django.contrib.auth import authenticate, login, logout
@@ -131,6 +131,14 @@ class CatDetailView(DetailView):
         context['titremenu'] = "Détail de la catégorie"
         return context
     
+class CategorieCreateView(CreateView):
+    model = Categorie
+    form_class=CategorieForm
+    template_name = "create_categorie.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        cat = form.save()
+        return redirect('dtl_categorie', cat.idCat)
+
 def ListCategories(request):
     cats = Categorie.objects.all()
     return render(request, 'list_categories.html', {'cats': cats})
@@ -148,6 +156,14 @@ class StatutDetailView(DetailView):
         context['titremenu'] = "Détail du statut"
         return context
 
+class StatutCreateView(CreateView):
+    model = Statut
+    form_class=StatutForm
+    template_name = "create_statut.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        stat = form.save()
+        return redirect('dtl_statut', stat.idStatus)
+
 def ListStatuts(request):
     stats = Statut.objects.all()
     return render(request, 'list_statuts.html', {'stats': stats})
@@ -164,6 +180,14 @@ class RayonDetailView(DetailView):
         context = super(RayonDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du rayon"
         return context
+    
+class RayonCreateView(CreateView):
+    model = Rayon
+    form_class=RayonForm
+    template_name = "create_rayon.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        stat = form.save()
+        return redirect('dtl_rayon', stat.idRayon)
 
 def ListRayons(request):
     rays = Rayon.objects.all()
