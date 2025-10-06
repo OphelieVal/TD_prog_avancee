@@ -30,7 +30,7 @@ urlpatterns = [
     path("statut/", views.StatutCreateView.as_view(), name="crt_statut"),
     
     # CRUD Rayon
-    path("rayons/", views.ListRayons, name="list_rayons"),
+    path("rayons/", views.RayonListView.as_view(), name="list_rayons"),
     path('rayon/<int:pk>/', views.RayonDetailView.as_view(), name='dtl_rayon'),
     path("rayon/<pk>/update/",views.RayonUpdateView.as_view(), name="ray_chng"),
     path("rayon/<pk>/delete/",views.RayonDeleteView.as_view(), name="ray_del"),

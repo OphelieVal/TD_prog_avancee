@@ -243,8 +243,24 @@ class RayonDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(RayonDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du rayon"
+        prdts_dt = []
+        total_rayon = 0
+        total_nb_produit = 0
+        
+        for contenir in self.object.contenir_rayon.all():
+            total_produit = contenir.produit.prixUnitaireProd * contenir.Qte
+            prdts_dt.append({ 'produit': contenir.produit,
+                            'qte': contenir.Qte,
+                            'prix_unitaire': contenir.produit.prixUnitaireProd,
+                            'total_produit': total_produit} )
+            total_rayon += total_produit
+            total_nb_produit += contenir.Qte
+        
+        context['prdts_dt'] = prdts_dt
+        context['total_rayon'] = total_rayon
+        context['total_nb_produit'] = total_nb_produit
         return context
-    
+            
 class RayonCreateView(CreateView):
     model = Rayon
     form_class=RayonForm
@@ -269,6 +285,23 @@ class RayonDeleteView(DeleteView):
 def ListRayons(request):
     rays = Rayon.objects.all()
     return render(request, 'list_rayons.html', {'rays': rays})
+
+class RayonListView(ListView):
+    model = Rayon
+    template_name = "list_rayons.html"
+    context_object_name = "ray"
+    def get_context_data(self, **kwargs):
+        context = super(RayonListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste de mes rayons"
+        ryns_dt = []
+        for rayon in context['ray']:
+            total = 0
+            for contenir in rayon.contenir_rayon.all():
+                total += contenir.produit.prixUnitaireProd * contenir.Qte
+            ryns_dt.append({'rayon': rayon,'total_stock': total})
+        
+        context['ryns_dt'] = ryns_dt
+        return context
 
 
 # Authentification
