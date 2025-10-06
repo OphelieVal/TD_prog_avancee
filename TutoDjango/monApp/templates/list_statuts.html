@@ -5,12 +5,14 @@
     <thead>
         <th>Id</th>
         <th>Libellé statut</th>
+        <th>Nombre de Produits</th>
     </thead>
     <tbody>
     {% for stat in stats %}
     <tr>
         <td><a href="{% url 'dtl_statut' stat.idStatus %}">{{ stat.idStatus }}</a></td>
         <td>{{ stat.libelleStatus }}</td>
+        <td>{{ stat.nb_produits }}</td>
     </tr>
     {% endfor %}
     </tbody>

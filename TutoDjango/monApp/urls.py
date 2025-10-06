@@ -23,7 +23,7 @@ urlpatterns = [
     path("categorie/", views.CategorieCreateView.as_view(), name="crt_cat"),
     
     # CRUD Statut
-    path("statuts/", views.ListStatuts, name="list_statuts"),
+    path("statuts/", views.StatutListView.as_view(), name="list_statuts"),
     path('statut/<int:pk>/', views.StatutDetailView.as_view(), name='dtl_statut'),
     path("statut/<pk>/update/",views.StatutUpdateView.as_view(), name="stat_chng"),
     path("statut/<pk>/delete/",views.StatutDeleteView.as_view(), name="stat_del"),

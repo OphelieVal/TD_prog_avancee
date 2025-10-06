@@ -183,9 +183,14 @@ class StatutDetailView(DetailView):
     template_name = "detail_status.html"
     context_object_name = "stat"
 
+    def get_queryset(self):
+        # Annoter chaque catégorie avec le nombre de produits liés
+        return Statut.objects.annotate(nb_produits=Count('produits_status'))
+
     def get_context_data(self, **kwargs):
         context = super(StatutDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du statut"
+        context['prdts'] = self.object.produits_status.all()
         return context
 
 class StatutCreateView(CreateView):
@@ -212,6 +217,20 @@ class StatutDeleteView(DeleteView):
 def ListStatuts(request):
     stats = Statut.objects.all()
     return render(request, 'list_statuts.html', {'stats': stats})
+
+class StatutListView(ListView):
+    model = Statut
+    template_name = "list_statuts.html"
+    context_object_name = "stats"
+    
+    def get_queryset(self):
+        # Annoter chaque catégorie avec le nombre de produits liés
+        return Statut.objects.annotate(nb_produits=Count('produits_status'))
+    def get_context_data(self, **kwargs):
+        context = super(StatutListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste de mes statuts"
+        return context
+
 
 
 # Rayon CRUD
