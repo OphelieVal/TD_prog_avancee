@@ -13,3 +13,4 @@ Groupe : Info3.3
 - 25/09/25 : Finalisation TD n°3
 - 29/09/25 : TP n°3 (Début CRUD pour Catégorie, Statut et Rayon)
 - 02/10/25 : Fin TP n°3 et TD n°4 (Affichage nb_produits par catégorie: ne fonctionne que dans les détails)
+- 06/10/2025 : TD n°4' (Génération du MCD)
