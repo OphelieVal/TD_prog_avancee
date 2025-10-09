@@ -379,3 +379,17 @@ class DisconnectView(TemplateView):
     def get(self, request, **kwargs):
         logout(request)
         return render(request, self.template_name, {'message': "Vous êtes déconnecté"})
+    
+
+# CRUD Contenir
+@method_decorator(login_required, name="dispatch")
+class ContenirCreateView(CreateView):   
+    model = Contenir
+    form_class=ContenirForm
+    template_name = "create_contenir.html"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        contenir = form.save()
+        return redirect('dtl_rayon', contenir.rayon.idRayon)
+    
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)

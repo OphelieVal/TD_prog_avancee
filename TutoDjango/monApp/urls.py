@@ -35,6 +35,7 @@ urlpatterns = [
     path("rayon/<pk>/update/",views.RayonUpdateView.as_view(), name="ray_chng"),
     path("rayon/<pk>/delete/",views.RayonDeleteView.as_view(), name="ray_del"),
     path("rayon/", views.RayonCreateView.as_view(), name="crt_rayon"),
+    path("rayon/<pk>/cntnr/", views.ContenirCreateView.as_view(), name="cntnr_crt"),
     
     # User authentication
     path('login/', views.ConnectView.as_view(), name='login'),
