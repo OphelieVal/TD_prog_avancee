@@ -8,6 +8,8 @@ from django.views.generic import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.mail import send_mail
 from django.db.models import Count, Prefetch
 
@@ -86,6 +88,7 @@ class ProduitDetailView(DetailView):
         context['titremenu'] = "Détail du produit"
         return context
 
+@method_decorator(login_required, name="dispatch")
 class ProduitCreateView(CreateView):
     model = Produit
     form_class=ProduitForm
@@ -93,7 +96,8 @@ class ProduitCreateView(CreateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         prdt = form.save()
         return redirect('dtl_prdt', prdt.refProd)
-    
+
+@method_decorator(login_required, name="dispatch")    
 class ProduitUpdateView(UpdateView):
     model = Produit
     form_class=ProduitForm
@@ -102,6 +106,7 @@ class ProduitUpdateView(UpdateView):
         prdt = form.save()
         return redirect('dtl_prdt', prdt.refProd)
     
+@method_decorator(login_required, name="dispatch")    
 class ProduitDeleteView(DeleteView):
     model = Produit
     template_name = "delete_produit.html"
@@ -137,7 +142,8 @@ class CatDetailView(DetailView):
         context['titremenu'] = "Détail de la catégorie"
         context['prdts'] = self.object.produits_categorie.all()
         return context
-    
+
+@method_decorator(login_required, name="dispatch")    
 class CategorieCreateView(CreateView):
     model = Categorie
     form_class=CategorieForm
@@ -145,7 +151,8 @@ class CategorieCreateView(CreateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         cat = form.save()
         return redirect('dtl_categorie', cat.idCat)
-    
+
+@method_decorator(login_required, name="dispatch")    
 class CategorieUpdateView(UpdateView):
     model = Categorie
     form_class=CategorieForm
@@ -153,7 +160,8 @@ class CategorieUpdateView(UpdateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         cat = form.save()
         return redirect('dtl_categorie', cat.idCat)
-    
+
+@method_decorator(login_required, name="dispatch")    
 class CategorieDeleteView(DeleteView):
     model = Categorie
     template_name = "delete_categorie.html"
@@ -194,6 +202,7 @@ class StatutDetailView(DetailView):
         context['prdts'] = self.object.produits_status.all()
         return context
 
+@method_decorator(login_required, name="dispatch")
 class StatutCreateView(CreateView):
     model = Statut
     form_class=StatutForm
@@ -201,7 +210,8 @@ class StatutCreateView(CreateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         stat = form.save()
         return redirect('dtl_statut', stat.idStatus)
-    
+
+@method_decorator(login_required, name="dispatch")    
 class StatutUpdateView(UpdateView):
     model = Statut
     form_class=StatutForm
@@ -209,7 +219,8 @@ class StatutUpdateView(UpdateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         stat = form.save()
         return redirect('dtl_statut', stat.idStatus)
-    
+
+@method_decorator(login_required, name="dispatch")    
 class StatutDeleteView(DeleteView):
     model = Statut
     template_name = "delete_statut.html"
@@ -261,7 +272,8 @@ class RayonDetailView(DetailView):
         context['total_rayon'] = total_rayon
         context['total_nb_produit'] = total_nb_produit
         return context
-            
+
+@method_decorator(login_required, name="dispatch")            
 class RayonCreateView(CreateView):
     model = Rayon
     form_class=RayonForm
@@ -269,7 +281,8 @@ class RayonCreateView(CreateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         stat = form.save()
         return redirect('dtl_rayon', stat.idRayon)
-    
+
+@method_decorator(login_required, name="dispatch")    
 class RayonUpdateView(UpdateView):
     model = Rayon
     form_class=RayonForm
@@ -277,7 +290,8 @@ class RayonUpdateView(UpdateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         ray = form.save()
         return redirect('dtl_rayon', ray.idRayon)
-    
+
+@method_decorator(login_required, name="dispatch")    
 class RayonDeleteView(DeleteView):
     model = Rayon
     template_name = "delete_rayon.html"
