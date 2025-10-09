@@ -3,13 +3,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 from .forms import *
-from .models import Produit, Categorie, Statut, Rayon
+from .models import Produit, Categorie, Statut, Rayon, Contenir
 from django.views.generic import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.db.models import Count
+from django.db.models import Count, Prefetch
 
 class HomeView(TemplateView):
     template_name = "page_home.html"
@@ -111,8 +111,9 @@ class ProduitListView(ListView):
     model = Produit
     template_name = "list_produits.html"
     context_object_name = "prdts"
-    def get_queryset(self ) :
-        return Produit.objects.order_by("prixUnitaireProd")
+    def get_queryset(self):
+        # Charge les catégories et les statuts en même temps
+        return Produit.objects.select_related('categorie').select_related('status')
     
     def get_context_data(self, **kwargs):
         context = super(ProduitListView, self).get_context_data(**kwargs)
@@ -290,6 +291,12 @@ class RayonListView(ListView):
     model = Rayon
     template_name = "list_rayons.html"
     context_object_name = "ray"
+
+    def get_queryset(self):
+        # Précharge tous les "contenir" de chaque rayon,
+        # et en même temps le produit de chaque contenir
+        return Rayon.objects.prefetch_related(Prefetch("contenir_rayon", queryset=Contenir.objects.select_related("produit")))
+    
     def get_context_data(self, **kwargs):
         context = super(RayonListView, self).get_context_data(**kwargs)
         context['titremenu'] = "Liste de mes rayons"
