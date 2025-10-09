@@ -117,6 +117,12 @@ class ProduitListView(ListView):
     template_name = "list_produits.html"
     context_object_name = "prdts"
     def get_queryset(self):
+        # Surcouche pour filtrer les résultats en fonction de la recherche
+        # Récupérer le terme de recherche depuis la requête GET
+        query = self.request.GET.get('search')
+        if query:
+            return Produit.objects.filter(intituleProd__icontains=query).select_related('categorie').select_related('status')
+        
         # Charge les catégories et les statuts en même temps
         return Produit.objects.select_related('categorie').select_related('status')
     
@@ -177,8 +183,14 @@ class CategorieListView(ListView):
     context_object_name = "ctgrs"
     
     def get_queryset(self):
+        # Surcouche pour filtrer les résultats en fonction de la recherche
+        # Récupérer le terme de recherche depuis la requête GET
+        query = self.request.GET.get('search')
+        if query:
+            return Categorie.objects.filter(nomCat__icontains=query).annotate(nb_produits=Count('produits_categorie'))
         # Annoter chaque catégorie avec le nombre de produits liés
         return Categorie.objects.annotate(nb_produits=Count('produits_categorie'))
+    
     def get_context_data(self, **kwargs):
         context = super(CategorieListView, self).get_context_data(**kwargs)
         context['titremenu'] = "Liste de mes catégories"
@@ -236,6 +248,11 @@ class StatutListView(ListView):
     context_object_name = "stats"
     
     def get_queryset(self):
+        # Surcouche pour filtrer les résultats en fonction de la recherche
+        # Récupérer le terme de recherche depuis la requête GET
+        query = self.request.GET.get('search')
+        if query:
+            return Statut.objects.filter(libelleStatus__icontains=query).annotate(nb_produits=Count('produits_status'))
         # Annoter chaque catégorie avec le nombre de produits liés
         return Statut.objects.annotate(nb_produits=Count('produits_status'))
     def get_context_data(self, **kwargs):
@@ -307,6 +324,11 @@ class RayonListView(ListView):
     context_object_name = "ray"
 
     def get_queryset(self):
+        # Surcouche pour filtrer les résultats en fonction de la recherche
+        # Récupérer le terme de recherche depuis la requête GET
+        query = self.request.GET.get('search')
+        if query:
+            return Rayon.objects.filter(nomRayon__icontains=query).prefetch_related(Prefetch("contenir_rayon", queryset=Contenir.objects.select_related("produit")))
         # Précharge tous les "contenir" de chaque rayon,
         # et en même temps le produit de chaque contenir
         return Rayon.objects.prefetch_related(Prefetch("contenir_rayon", queryset=Contenir.objects.select_related("produit")))
