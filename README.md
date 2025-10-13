@@ -15,3 +15,4 @@ Groupe : Info3.3
 - 02/10/25 : Fin TP n°3 et TD n°4 (Affichage nb_produits par catégorie: ne fonctionne que dans les détails)
 - 06/10/2025 : TD n°4 (Génération du MCD)
 - 09/10/25 : TD n°4 (Début ContenirCreateView)
+- 13/10/25 : Mise en pause de ContenirForm pour commencer les tests unitaires TP n°4 (Tests Catégorie terminés)

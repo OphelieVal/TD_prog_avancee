@@ -30,4 +30,5 @@ class StatutForm(forms.ModelForm):
 class ContenirForm(forms.ModelForm):
     class Meta:
         model = Contenir
-        fields = ['produit', 'Qte']
+        fields = ['rayon', 'produit', 'Qte']
+        exclude = ('rayon',)
