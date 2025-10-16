@@ -1,5 +1,4 @@
 from django.test import TestCase
-from monApp.models import Categorie
 from monApp.forms import CategorieForm
 
 class CategorieFormTest(TestCase):
